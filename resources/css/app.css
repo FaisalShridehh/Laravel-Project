@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Hanken Grotesk';
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url('../fonts/Hanken_Grotesk/HankenGrotesk-VariableFont_wght.ttf') format('truetype');
+    }
+
+    /* @font-face {
+        font-family: 'Hanken Grotesk';
+        font-style: italic;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url('../fonts/Hanken_Grotesk/HankenGrotesk-VariableFont_wght.ttf') format('truetype');
+    } */
+}
