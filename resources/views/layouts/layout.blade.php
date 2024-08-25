@@ -10,7 +10,7 @@
 </head>
 
 <body class="bg-dark text-white font-Hanken-Grotesk">
-    <div class="px-10">
+    <div class="px-10 h-full">
         <nav class="flex justify-between items-center py-4 border-b border-white/10">
             <div>
                 <a href="/">
@@ -24,7 +24,26 @@
                 <a href="/salaries">Salaries</a>
                 <a href="/companies">Companies</a>
             </div>
-            <div>post a job</div>
+
+            @guest
+            <div class="space-x-6 font-semibold ">
+                <a href="/register" class="hover:underline hover:underline-offset-2 ">Register</a>
+                <a href="/login" class="hover:underline hover:underline-offset-2 ">Login</a>
+            </div>
+            @endguest
+
+            @auth
+                <div class="space-x-6 font-bold flex">
+                    <a href="/jobs/create">Post a Job</a>
+
+                    <form method="POST" action="{{ route('auth.destroy.logout') }}">
+                        @csrf
+                        @method('DELETE')
+
+                        <button>Log Out</button>
+                    </form>
+                </div>
+            @endauth
         </nav>
 
         <main class="mt-10 max-w-[986px] mx-auto">

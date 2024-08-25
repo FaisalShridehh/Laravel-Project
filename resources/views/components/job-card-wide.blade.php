@@ -1,9 +1,10 @@
+ @props(['job' => null])
  {{-- job cards start --}}
- <x-panel class="p-4 gap-4 duration-300">
-    
+ <x-panel class="p-4 gap-4">
+
      {{-- left div for Employers image start--}}
      <div class="flex-[1]">
-         <x-employer-logo :width="90" :height="90" />
+        <x-employer-logo :employer="$job->employer" />
      </div>
      {{-- left div for Employers image end --}}
 
@@ -12,22 +13,25 @@
          <div>
 
              <div class="flex justify-between items-center">
-                 <p class="text-sm text-gray-400"><a href="#">JoSequal</a></p>
+                 <p class="text-sm text-gray-400"><a href="#">{{$job->employer->name}}</a></p>
                  <div class="flex items-center gap-3">
-                     <x-tag size="small">Remote</x-tag>
-                     <x-tag size="small">Full Time</x-tag>
+
+                     @foreach ($job->tags as $tag)
+                     <x-tag size="small" :tag="$tag" />
+                     @endforeach
                  </div>
              </div>
              <div class="mb-3">
-                 <h3 class="text-xl mt-3 font-bold group-hover:text-sky-500 transition-colors duration-300 ">Full stack Laravel developer</h3>
+                 <h3 class="text-xl mt-3 font-bold group-hover:text-sky-500 transition-colors duration-300 ">
+                     {{ $job->title }}</h3>
              </div>
          </div>
          <div class="flex justify-between items-center">
-             <p class="text-sm text-gray-400">Full Time - From $1000 per hour</p>
+             <p class="text-sm text-gray-400">{{$job->location}} - From ${{$job->salary}} {{$job->salary_type}}</p>
              <div class="flex items-center gap-3 flex-wrap">
-                 <x-tag size="small">Frontend</x-tag>
-                 <x-tag size="small">Backend</x-tag>
-                 <x-tag size="small">Api</x-tag>
+                 @foreach ($job->tags as $tag )
+                 <x-tag size="small" :tag="$tag" />
+                 @endforeach
              </div>
          </div>
      </div>
