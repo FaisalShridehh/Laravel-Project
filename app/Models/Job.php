@@ -22,14 +22,28 @@ class Job extends Model
         'company',
         'description',
         'schedule',
-        'url',
+        // 'url',
+        'featured',
     ];
 
     protected $casts = [
         'schedule' => JobSchedule::class,
         'salary_type' => SalaryType::class,
         'featured' => 'boolean',
+        // 'url' => 'string',
     ];
+
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return $this->casts;
+    }
+
 
 
     public function tag(string $name): void

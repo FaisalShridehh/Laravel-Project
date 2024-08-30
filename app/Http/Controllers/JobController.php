@@ -31,12 +31,15 @@ class JobController extends Controller
                 ]
             );
         }
+
         $jobs = Job::latest()->with(['employer', 'tags'])->get()->groupBy('featured');
+
+        // dd($jobs);
         // return $jobs;
         return view('jobs.index')->with(
             [
-                'featuredJobs' => $jobs[0],
-                'recentJobs' => $jobs[1],
+                'recentJobs' => $jobs[0],
+                'featuredJobs' => $jobs[1],
                 'tags' => Tag::all()
             ]
         );
@@ -71,13 +74,15 @@ class JobController extends Controller
                 'salary_type' => ['required', new Enum(SalaryType::class)],
                 'description' => ['required', 'string'],
                 'schedule' => ['required', new Enum(JobSchedule::class)],
-                'url' => ['required', 'active_url'],
+                // 'url' => ['required', 'active_url'],
                 'tags' => ['nullable'],
             ]);
 
             
             $attributes['featured'] = $request->has('featured');
             // dd($attributes, $attributes['featured']); // Check if this line is reached
+
+            // dd($attributes);
 
             $job = Auth::user()->employer->jobs()->create(Arr::except($attributes, 'tags'));
 
@@ -99,6 +104,8 @@ class JobController extends Controller
     public function show(Job $job)
     {
         //
+        return view('jobs.show', ['job' => $job]);
+
     }
 
     /**
@@ -107,14 +114,34 @@ class JobController extends Controller
     public function edit(Job $job)
     {
         //
+        return view('jobs.edit', ['job' => $job]);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateJobRequest $request, Job $job)
+    public function update(Job $job)
     {
         //
+
+        request()->validate([
+            'title' => ['required', 'min:3'],
+            'salary' => ['required']
+        ]);
+
+
+        // $job = Job::findOrFail($id);
+
+        $job->update([
+            'title' => request('title'),
+            'salary' => request('salary'),
+            'company' => request('company'),
+            'location' => request('location'),
+            'description' => request('description'),
+        ]);
+
+        return redirect()->route('jobs.show', $job->id);
     }
 
     /**
@@ -123,5 +150,8 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         //
+        $job->delete();
+
+        return redirect()->route('jobs.index');
     }
 }

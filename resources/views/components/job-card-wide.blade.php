@@ -4,7 +4,7 @@
 
      {{-- left div for Employers image start--}}
      <div class="flex-[1]">
-        <x-employer-logo :employer="$job->employer" />
+         <x-employer-logo :employer="$job->employer" />
      </div>
      {{-- left div for Employers image end --}}
 
@@ -23,7 +23,10 @@
              </div>
              <div class="mb-3">
                  <h3 class="text-xl mt-3 font-bold group-hover:text-sky-500 transition-colors duration-300 ">
-                     {{ $job->title }}</h3>
+                     <a href="{{ route('jobs.show', $job['id']) }}">
+                         {{ $job->title }}
+                     </a>
+                 </h3>
              </div>
          </div>
          <div class="flex justify-between items-center">

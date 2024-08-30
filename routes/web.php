@@ -12,10 +12,10 @@ Route::controller(JobController::class)->group(function () {
     Route::get('/', 'index')->name('jobs.index');
     Route::get('/jobs/create', 'create')->name('jobs.create')->middleware('auth');
     Route::post('/jobs', 'store')->name('jobs.store')->middleware('auth');
-    // Route::get('/jobs/{job}', 'show')->name('jobs.show');
-    // Route::get('/jobs/{job}/edit', 'edit')->name('jobs.edit')->middleware('auth');
-    // Route::put('/jobs/{job}', 'update')->name('jobs.update')->middleware('auth');
-    // Route::delete('/jobs/{job}', 'destroy')->name('jobs.destroy')->middleware('auth');
+    Route::get('/jobs/{job}', 'show')->name('jobs.show');
+    Route::get('/jobs/{job}/edit', 'edit')->name('jobs.edit')->middleware('auth');
+    Route::patch('/jobs/{job}', 'update')->name('jobs.update')->middleware('auth');
+    Route::delete('/jobs/{job}', 'destroy')->name('jobs.destroy')->middleware('auth');
 });
 
 Route::get('/search', SearchController::class)->name('jobs.search');
